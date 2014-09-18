@@ -19,9 +19,10 @@ class Migration(DataMigration):
                 version.delete()  # This version refers to a content type that doesn't exist any more.
                 continue
             model = content_type.model_class()
-            if has_int_pk(model):
-                version.object_id_int = int(version.object_id)
-                version.save()
+            if model:#some times the model is just gone
+                if has_int_pk(model):
+                    version.object_id_int = int(version.object_id)
+                    version.save()
 
 
     def backwards(self, orm):
